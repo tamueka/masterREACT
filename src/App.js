@@ -5,21 +5,25 @@ import "./assets/css/App.css";
 //Importar Componentes
 import MiComponente from "./components/MiComponente";
 import Peliculas from "./components/Peliculas";
-import Header from './components/Header';
-import Slider from './components/Slider';
+import Header from "./components/Header";
+import Slider from "./components/Slider";
+import Sidebar from "./components/Sidebar";
 
 function App() {
   return (
     <div className="App">
-    <Header />
-    <Slider />
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <section className="componentes">
-          <MiComponente />
-          <Peliculas />
+      <Header />
+      <Slider />
+      <div className="center">
+        <section id="content">
+          <img src={logo} className="App-logo" alt="logo" />
+          <section className="componentes">
+            <MiComponente />
+            <Peliculas />
+          </section>
         </section>
-      </header>
+        <Sidebar />
+      </div>
     </div>
   );
 }
