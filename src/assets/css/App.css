@@ -339,6 +339,12 @@ textarea {
   border: none;
 }
 
+.favorita {
+  background: green;
+  color: white;
+  padding: 10px;
+}
+
 /*RESPONSIVE*/
 
 /*Desde la anchura 963px hasta la anchura 1488px de pantalla*/
