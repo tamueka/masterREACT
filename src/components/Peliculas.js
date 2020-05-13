@@ -25,7 +25,7 @@ class Peliculas extends Component {
   };
 
   componentWillMount() {
-    console.log("Se va a montar el componente")
+    //console.log("Se va a montar el componente")
     this.setState({
       peliculas: [
         {
@@ -50,11 +50,11 @@ class Peliculas extends Component {
   }
 
   componentDidMount(){
-    console.log("Componente montado")
+    //console.log("Componente montado")
   }
 
   componentWillUnmount(){
-    console.log("Componente desmontado")
+    //console.log("Componente desmontado")
   }
 
   render() {
@@ -65,11 +65,13 @@ class Peliculas extends Component {
         <button onClick={this.cambiarTitulo}>
           Cambiar titulo pelicula Batman
         </button>
-        {this.state.favorita && (
+        {this.state.favorita ? (
           <p className="favorita">
             <span>La pelicula favorita es: </span>
             <strong>{this.state.favorita.titulo}</strong>
           </p>
+        ) : (
+          <p>No hay pelicula favorita marcada</p>
         )}
 
         {/* COMPONENTE PELICULA */}
