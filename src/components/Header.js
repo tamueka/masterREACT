@@ -30,10 +30,10 @@ class Header extends Component {
                 <a href="formulario.html">Formulario</a>
               </li>
               <li>
-                <a href="#">Pagina 1</a>
+                <a href="/pagina1">Pagina 1</a>
               </li>
               <li>
-                <a href="#">Pagina 2</a>
+                <a href="/pagina2">Pagina 2</a>
               </li>
             </ul>
           </nav>
