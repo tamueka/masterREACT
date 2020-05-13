@@ -6,7 +6,7 @@ import Header from "./components/Header";
 import Slider from "./components/Slider";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
-import SeccionPruebas from "./components/SeccionPruebas";
+import Peliculas from "./components/Peliculas";
 
 function App() {
   var buttonString = "Ir al blog"
@@ -15,7 +15,7 @@ function App() {
       <Header />
       <Slider title="APP React" btn={buttonString}/>
       <div className="center">
-        <SeccionPruebas />
+        <Peliculas />
         <Sidebar />
         <div className="clearfix"></div>
       </div>
