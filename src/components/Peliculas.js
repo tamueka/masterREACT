@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Pelicula from "./Pelicula";
 
 class Peliculas extends Component {
   state = {
@@ -23,28 +24,16 @@ class Peliculas extends Component {
   };
   render() {
     return (
-      <div id="peliculas" className="content flex">
-        <h2>Peliculas</h2>
+      <div id="content" className="peliculas">
+        <h2 className="subheader">Peliculas</h2>
         <h4>Lista de peliculas favoritas de {this.state.nombre}</h4>
-        <div id="peliculas" className="peliculas">
-          {this.state.peliculas.map((pelicula, i) => {
-            return (
-              <div id="articles" key={i}>
-                <article className="article-item" id="article-template">
-                  <h2>{pelicula.titulo}</h2>
-                  <div className="image-wrap">
-                    <img src={pelicula.image} alt={pelicula.titulo} />
-                  </div>
-
-                  <span className="date">Hace 5 minutos</span>
-                  <a href="/detail">Leer más</a>
-
-                  <div className="clearfix"></div>
-                </article>
-              </div>
-            );
-          })}
-        </div>
+        {/* COMPONENTE PELICULA */}
+        {this.state.peliculas.map((pelicula, i) => {
+          return <Pelicula 
+                          key={i} 
+                          pelicula={pelicula} 
+                  />;
+        })}
       </div>
     );
   }
