@@ -18,7 +18,7 @@ class SeccionPruebas extends Component {
     contador: 0
   }
 
-  sumar() {
+  sumar = (e) => {
     /* this.contador = this.contador++; NO FUNCIONA*/
     /* this.state.contador = this.state.contador++; NO FUNCIONA*/
     this.setState({
@@ -26,7 +26,7 @@ class SeccionPruebas extends Component {
     });
   }
 
-  restar() {
+  restar = (e) => {
     /* this.contador = this.contador--; NO FUNCIONA*/
     /* this.state.contador = this.state.contador--; NO FUNCIONA*/
     this.setState({
@@ -51,7 +51,7 @@ class SeccionPruebas extends Component {
               className="btn btn-primary"
               type="button"
               value="+"
-              onClick={this.sumar.bind(this)}
+              onClick={this.sumar}
             />
           </p>
           <h3>Contador: {this.contador}</h3>
@@ -60,7 +60,7 @@ class SeccionPruebas extends Component {
               className="btn btn-primary"
               type="button"
               value="-"
-              onClick={this.restar.bind(this)}
+              onClick={this.restar}
             />
           </p>
         </section>
