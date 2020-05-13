@@ -23,6 +23,15 @@ body {
   margin: 0px auto;
 }
 
+.flex{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  
+
+}
+
 .clearfix {
   clear: both;
   float: none;
@@ -184,7 +193,7 @@ body {
 
 .btn {
   display: block;
-  background: black;
+  background: rgba(73, 155, 234, 1);
   color: white;
   padding: 15px;
   font-weight: bold;
