@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import SeccionPruebas from './components/SeccionPruebas';
+import SeccionPruebas from "./components/SeccionPruebas";
 import MiComponente from "./components/MiComponente";
 import Peliculas from "./components/Peliculas";
 import Error from "./components/Error";
-
 
 class Router extends Component {
   render() {
@@ -24,6 +23,28 @@ class Router extends Component {
                 <MiComponente saludo="Hola amigo" />
               </React.Fragment>
             )}
+          />
+          <Route
+            exact
+            path="/pruebas/:nombre/:apellidos?"
+            render={(props) => {
+              var nombre = props.match.params.nombre;
+              var apellidos = props.match.params.apellidos;
+
+              return (
+                <div id="content">
+                  <h1>Pagina pruebas</h1>
+                  {nombre && !apellidos && (
+                    <React.Fragment>{nombre}</React.Fragment>
+                  )}
+                  {nombre && apellidos && (
+                    <React.Fragment>
+                      {nombre} {apellidos}
+                    </React.Fragment>
+                  )}
+                </div>
+              );
+            }}
           />
           <Route component={Error} />
         </Switch>
