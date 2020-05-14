@@ -95,7 +95,7 @@ body {
 
 
 #menu a:hover {
-  color: #3cb2d3;
+  color: #61dafb;
 }
 
 #slider {
@@ -191,7 +191,7 @@ body {
 
 .btn {
   display: block;
-  background: rgba(73, 155, 234, 1);
+  background: #61dafb;
   color: white;
   padding: 15px;
   font-weight: bold;
@@ -343,6 +343,12 @@ textarea {
   background: green;
   color: white;
   padding: 10px;
+}
+
+
+.active {
+  color: #61dafb !important;
+  border-bottom: 2px solid #61dafb;
 }
 
 /*RESPONSIVE*/

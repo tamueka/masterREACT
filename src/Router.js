@@ -14,55 +14,56 @@ class Router extends Component {
   render() {
     var buttonString = "Ir al blog";
     return (
-        <BrowserRouter>
-          <Header />
-          <Slider title="APP React" btn={buttonString} />
-          <div className="center"></div>
+      <BrowserRouter>
+        <Header />
+        <Slider title="APP React" btn={buttonString} />
+        <div className="center"></div>
 
-          {/* CONFIGURAMOS RUTAS Y PAGINAS */}
-          <Switch>
-            <Route exact path="/" component={Peliculas} />
-            <Route exact path="/ruta-prueba" component={SeccionPruebas} />
-            <Route exact path="/segunda-ruta" component={MiComponente} />
-            <Route
-              exact
-              path="/pagina-1"
-              render={() => (
-                <React.Fragment>
-                  <h1>Hola mundo desde la ruta: PAGINA 1</h1>
-                  <MiComponente saludo="Hola amigo" />
-                </React.Fragment>
-              )}
-            />
-            <Route
-              exact
-              path="/pruebas/:nombre/:apellidos?"
-              render={(props) => {
-                var nombre = props.match.params.nombre;
-                var apellidos = props.match.params.apellidos;
+        {/* CONFIGURAMOS RUTAS Y PAGINAS */}
+        <Switch>
+          <Route exact path="/" component={Peliculas} />
+          <Route exact path="/home" component={Peliculas} />
+          <Route exact path="/ruta-prueba" component={SeccionPruebas} />
+          <Route exact path="/segunda-ruta" component={MiComponente} />
+          <Route
+            exact
+            path="/pagina-1"
+            render={() => (
+              <React.Fragment>
+                <h1>Hola mundo desde la ruta: PAGINA 1</h1>
+                <MiComponente saludo="Hola amigo" />
+              </React.Fragment>
+            )}
+          />
+          <Route
+            exact
+            path="/pruebas/:nombre/:apellidos?"
+            render={(props) => {
+              var nombre = props.match.params.nombre;
+              var apellidos = props.match.params.apellidos;
 
-                return (
-                  <div id="content">
-                    <h1>Pagina pruebas</h1>
-                    {nombre && !apellidos && (
-                      <React.Fragment>{nombre}</React.Fragment>
-                    )}
-                    {nombre && apellidos && (
-                      <React.Fragment>
-                        {nombre} {apellidos}
-                      </React.Fragment>
-                    )}
-                  </div>
-                );
-              }}
-            />
-            <Route component={Error} />
-          </Switch>
+              return (
+                <div id="content">
+                  <h1>Pagina pruebas</h1>
+                  {nombre && !apellidos && (
+                    <React.Fragment>{nombre}</React.Fragment>
+                  )}
+                  {nombre && apellidos && (
+                    <React.Fragment>
+                      {nombre} {apellidos}
+                    </React.Fragment>
+                  )}
+                </div>
+              );
+            }}
+          />
+          <Route component={Error} />
+        </Switch>
 
-          <Sidebar />
-          <div className="clearfix"></div>
-          <Footer />
-        </BrowserRouter>
+        <Sidebar />
+        <div className="clearfix"></div>
+        <Footer />
+      </BrowserRouter>
     );
   }
 }
