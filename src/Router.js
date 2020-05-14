@@ -15,6 +15,16 @@ class Router extends Component {
           <Route exact path="/" component={Peliculas} />
           <Route exact path="/ruta-prueba" component={SeccionPruebas} />
           <Route exact path="/segunda-ruta" component={MiComponente} />
+          <Route
+            exact
+            path="/pagina-1"
+            render={() => (
+              <React.Fragment>
+                <h1>Hola mundo desde la ruta: PAGINA 1</h1>
+                <MiComponente saludo="Hola amigo" />
+              </React.Fragment>
+            )}
+          />
           <Route component={Error} />
         </Switch>
       </BrowserRouter>
