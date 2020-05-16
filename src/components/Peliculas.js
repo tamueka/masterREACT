@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Pelicula from "./Pelicula";
+import Slider from "./Slider";
+import Sidebar from "./Sidebar";
 
 class Peliculas extends Component {
   state = {};
@@ -59,32 +61,38 @@ class Peliculas extends Component {
 
   render() {
     return (
-      <div id="content" className="peliculas">
-        <h2 className="subheader">Peliculas</h2>
-        <h4>Lista de peliculas favoritas de {this.state.nombre}</h4>
-        <button onClick={this.cambiarTitulo}>
-          Cambiar titulo pelicula Batman
-        </button>
-        {this.state.favorita ? (
-          <p className="favorita">
-            <span>La pelicula favorita es: </span>
-            <strong>{this.state.favorita.titulo}</strong>
-          </p>
-        ) : (
-          <p>No hay pelicula favorita marcada</p>
-        )}
+      <div id="peliculas">
+        <Slider title="Peliculas" size="slider-small" />
+        <div class="center">
+          <div id="content" className="peliculas">
+            <h2 className="subheader">Listado de Peliculas</h2>
+            <h4>Lista de peliculas favoritas de {this.state.nombre}</h4>
+            <button onClick={this.cambiarTitulo}>
+              Cambiar titulo pelicula Batman
+            </button>
+            {this.state.favorita ? (
+              <p className="favorita">
+                <span>La pelicula favorita es: </span>
+                <strong>{this.state.favorita.titulo}</strong>
+              </p>
+            ) : (
+              <p>No hay pelicula favorita marcada</p>
+            )}
 
-        {/* COMPONENTE PELICULA */}
-        {this.state.peliculas.map((pelicula, i) => {
-          return (
-            <Pelicula
-              key={i}
-              pelicula={pelicula}
-              indice={i}
-              marcarFavorita={this.favorita}
-            />
-          );
-        })}
+            {/* COMPONENTE PELICULA */}
+            {this.state.peliculas.map((pelicula, i) => {
+              return (
+                <Pelicula
+                  key={i}
+                  pelicula={pelicula}
+                  indice={i}
+                  marcarFavorita={this.favorita}
+                />
+              );
+            })}
+          </div>
+        </div>
+        <Sidebar />
       </div>
     );
   }
