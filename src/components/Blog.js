@@ -4,10 +4,6 @@ import Sidebar from "../components/Sidebar";
 import Articles from "../components/Articles";
 
 class Blog extends Component {
-  state = {
-    articles: {},
-    status: null,
-  };
 
   render() {
     return (
