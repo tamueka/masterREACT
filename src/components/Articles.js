@@ -5,6 +5,7 @@ import Global from "../Global";
 import imgDefault from "../assets/images/image-holder-icon.png";
 import Moment from 'react-moment';
 import 'moment/locale/es';
+import { Link } from 'react-router-dom';
 
 class Articles extends Component {
 
@@ -53,7 +54,7 @@ class Articles extends Component {
 
               <h2>{article.title}</h2>
               <span className="date"><Moment fromNow>{article.date}</Moment></span>
-              <a href="#">Leer más</a>
+              <Link to={`/blog/articulo/${article._id}`}>Leer más</Link>
 
               <div className="clearfix"></div>
             </article>
