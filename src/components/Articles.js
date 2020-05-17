@@ -1,8 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
 import logo from "../assets/images/logo.svg";
+import Global from "../Global";
+import imgDefault from "../assets/images/image-holder-icon.png";
 
 class Articles extends Component {
+
+  url = Global.url;
+
   state = {
     articles: {},
     status: null,
@@ -14,7 +19,7 @@ class Articles extends Component {
 
   getArticles = () => {
     axios
-      .get("http://localhost:3900/api/articles")
+      .get(`${this.url}articles`)
       .then((res) => {
         this.setState({
           articles: res.data.articles,
@@ -28,15 +33,20 @@ class Articles extends Component {
   render() {
     if (this.state.articles.length >= 1) {
       var listArticles = this.state.articles.map((article) => {
+        console.log(article)
         return (
           <div id="articles">
             <h1>LISTADO DE ARTICULOS</h1>
             <article className="article-item" id="article-template">
               <div className="image-wrap">
-                <img
-                  src="https://unhabitatmejor.leroymerlin.es/sites/default/files/styles/header_category/public/2018-10/4%20paisaje%20macedonia.jpg?itok=AELknmF8"
-                  alt="Paisaje"
-                />
+                {article.image !== null && article.image !== undefined ? (
+                  <img
+                    src={this.url + "get-image/" + article.image}
+                    alt={article.title}
+                  />
+                ) : (
+                  <img src={imgDefault} className="app-logo" alt="Logotipo" />
+                )}
               </div>
 
               <h2>{article.title}</h2>
