@@ -3,6 +3,8 @@ import axios from "axios";
 import logo from "../assets/images/logo.svg";
 import Global from "../Global";
 import imgDefault from "../assets/images/image-holder-icon.png";
+import Moment from 'react-moment';
+import 'moment/locale/es';
 
 class Articles extends Component {
 
@@ -50,7 +52,7 @@ class Articles extends Component {
               </div>
 
               <h2>{article.title}</h2>
-              <span className="date">{article.date}</span>
+              <span className="date"><Moment fromNow>{article.date}</Moment></span>
               <a href="#">Leer más</a>
 
               <div className="clearfix"></div>
