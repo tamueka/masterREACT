@@ -8,7 +8,6 @@ import 'moment/locale/es';
 import { Link } from 'react-router-dom';
 
 class Articles extends Component {
-
   url = Global.url;
 
   state = {
@@ -17,8 +16,26 @@ class Articles extends Component {
   };
 
   componentWillMount() {
-    this.getArticles();
+    var home = this.props.home;
+
+    if (home === "true") {
+      this.getLastArticles();
+    } else {
+      this.getArticles();
+    }
   }
+
+  getLastArticles = () => {
+    axios
+      .get(`${this.url}articles/last`)
+      .then((res) => {
+        this.setState({
+          articles: res.data.articles,
+          status: "success",
+        });
+      })
+      .catch((err) => console.log(err));
+  };
 
   getArticles = () => {
     axios
@@ -28,7 +45,6 @@ class Articles extends Component {
           articles: res.data.articles,
           status: "success",
         });
-        //console.log(this.state)
       })
       .catch((err) => console.log(err));
   };
@@ -36,7 +52,7 @@ class Articles extends Component {
   render() {
     if (this.state.articles.length >= 1) {
       var listArticles = this.state.articles.map((article) => {
-        console.log(article)
+        console.log(article);
         return (
           <div id="articles">
             <h1>LISTADO DE ARTICULOS</h1>
@@ -53,7 +69,9 @@ class Articles extends Component {
               </div>
 
               <h2>{article.title}</h2>
-              <span className="date"><Moment fromNow>{article.date}</Moment></span>
+              <span className="date">
+                <Moment fromNow>{article.date}</Moment>
+              </span>
               <Link to={`/blog/articulo/${article._id}`}>Leer más</Link>
 
               <div className="clearfix"></div>
@@ -61,7 +79,7 @@ class Articles extends Component {
           </div>
         );
       });
-      return <div id="articles">{listArticles}</div>
+      return <div id="articles">{listArticles}</div>;
     } else if (
       this.state.articles.length === 0 &&
       this.state.status === "success"
