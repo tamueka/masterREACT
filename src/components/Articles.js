@@ -3,9 +3,9 @@ import axios from "axios";
 import logo from "../assets/images/logo.svg";
 import Global from "../Global";
 import imgDefault from "../assets/images/image-holder-icon.png";
-import Moment from 'react-moment';
-import 'moment/locale/es';
-import { Link } from 'react-router-dom';
+import Moment from "react-moment";
+import "moment/locale/es";
+import { Link } from "react-router-dom";
 
 class Articles extends Component {
   url = Global.url;
@@ -17,13 +17,35 @@ class Articles extends Component {
 
   componentWillMount() {
     var home = this.props.home;
+    var search = this.props.search;
 
     if (home === "true") {
       this.getLastArticles();
+    } else if (search && search !== null && search !== undefined) {
+      this.getArticlesBySearch(search);
     } else {
       this.getArticles();
     }
   }
+
+  getArticlesBySearch = (searched) => {
+    axios
+      .get(`${this.url}search/${searched}`)
+      .then((res) => {
+        if (res.data.articles) {
+          this.setState({
+            articles: res.data.articles,
+            status: "success",
+          });
+        }
+      })
+      .catch((err) => {
+        this.setState({
+          articles: [],
+          status: "success",
+        });
+      });
+  };
 
   getLastArticles = () => {
     axios
@@ -52,10 +74,8 @@ class Articles extends Component {
   render() {
     if (this.state.articles.length >= 1) {
       var listArticles = this.state.articles.map((article) => {
-        console.log(article);
         return (
-          <div id="articles">
-            <h1>LISTADO DE ARTICULOS</h1>
+          <div id="articles" key={article._id}>
             <article className="article-item" id="article-template">
               <div className="image-wrap">
                 {article.image !== null && article.image !== undefined ? (
