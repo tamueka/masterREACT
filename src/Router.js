@@ -9,6 +9,7 @@ import Home from "./components/Home";
 import Formulario from "./components/Formulario";
 import Peliculas from "./components/Peliculas";
 import Search from "./components/Search";
+import Article from "./components/Article";
 
 class Router extends Component {
   render() {
@@ -32,7 +33,7 @@ class Router extends Component {
           <Route
             exact
             path="/blog/articulo/:id"
-            render={() => <h1>Pagina individual</h1>}
+            component={Article}
           />
           <Route exact path="/formulario" component={Formulario} />
           <Route exact path="/peliculas" component={Peliculas} />
