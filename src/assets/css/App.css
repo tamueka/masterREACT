@@ -204,6 +204,18 @@ body {
   cursor: pointer;
 }
 
+.btn-warning {
+  background: yellow;
+  color: white !important;
+  text-align: center;
+}
+
+.btn-danger {
+  background: red;
+  color: white !important;
+  text-align: center;
+}
+
 .btn-success {
   background: rgb(23, 150, 19);
 }

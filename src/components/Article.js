@@ -5,6 +5,9 @@ import Global from "../Global";
 import Articles from "./Articles";
 import Sidebar from "./Sidebar";
 import logo from "../assets/images/logo.svg";
+import imgDefault from "../assets/images/image-holder-icon.png";
+import Moment from "react-moment";
+import "moment/locale/es";
 
 class Article extends Component {
   url = Global.url;
@@ -25,13 +28,13 @@ class Article extends Component {
       .then((res) => {
         this.setState({
           article: res.data.article,
-          status: 'success',
+          status: "success",
         });
       })
       .catch((err) => {
         this.setState({
           article: false,
-          status: 'success',
+          status: "success",
         });
       });
   };
@@ -41,31 +44,33 @@ class Article extends Component {
     return (
       <div className="center">
         <section id="content">
-          {this.state.article && (
+          {article && (
             <article className="article-item article-detail">
               <div className="image-wrap">
-                <img
-                  src="https://unhabitatmejor.leroymerlin.es/sites/default/files/styles/header_category/public/2018-10/4%20paisaje%20macedonia.jpg?itok=AELknmF8"
-                  alt="Paisaje"
-                />
+                {article.image !== null && article.image !== undefined ? (
+                  <img
+                    src={this.url + "get-image/" + article.image}
+                    alt={article.title}
+                  />
+                ) : (
+                  <img src={imgDefault} alt={article.title} />
+                )}
               </div>
 
               <h1 className="subheader">{article.title}</h1>
-              <span className="date">Hace 5 minutos</span>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Maecenas sit amet consectetur dui. Vestibulum ac convallis urna,
-                vitae porta massa. Mauris sit amet nisi in metus tempor
-                convallis. Nulla nec euismod turpis. Cras luctus lorem et nisl
-                dapibus aliquet. Curabitur lorem nunc, tristique a felis ac,
-                vehicula laoreet ante. Ut auctor orci turpis. Cras sit amet
-                placerat nulla, feugiat eleifend metus. Mauris nec convallis
-                lectus. In gravida sapien in iaculis vulputate. Aliquam a
-                rhoncus elit, sit amet pretium nisl. Vivamus egestas facilisis
-                viverra. Orci varius natoque penatibus et magnis dis parturient
-                montes, nascetur ridiculus mus. Ut vel lorem est. Cras et sapien
-                finibus, mattis est in, condimentum nisl.
-              </p>
+              <span className="date">
+                <Moment locale="es" fromNow>
+                  {article.date}
+                </Moment>
+              </span>
+              <p>{article.content}</p>
+
+              <a href="#" className="btn btn-danger">
+                Eliminar
+              </a>
+              <a href="#" className="btn btn-warning">
+                Editar
+              </a>
 
               <div className="clearfix"></div>
             </article>

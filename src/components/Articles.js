@@ -73,7 +73,7 @@ class Articles extends Component {
 
   render() {
     if (this.state.articles.length >= 1) {
-      var listArticles = this.state.articles.map((article) => {
+      var listArticles = this.state.articles.map((article) =>  {
         return (
           <div id="articles" key={article._id}>
             <article className="article-item" id="article-template">
