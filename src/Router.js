@@ -10,6 +10,7 @@ import Formulario from "./components/Formulario";
 import Peliculas from "./components/Peliculas";
 import Search from "./components/Search";
 import Article from "./components/Article";
+import CreateArticle from "./components/CreateArticle";
 
 class Router extends Component {
   render() {
@@ -30,11 +31,8 @@ class Router extends Component {
               return <Redirect to={`/blog/busqueda/${search}`} />;
             }}
           />
-          <Route
-            exact
-            path="/blog/articulo/:id"
-            component={Article}
-          />
+          <Route exact path="/blog/articulo/:id" component={Article} />
+          <Route exact path="/blog/crear" component={CreateArticle} />
           <Route exact path="/formulario" component={Formulario} />
           <Route exact path="/peliculas" component={Peliculas} />
           <Route
