@@ -7,6 +7,8 @@ import Global from "../Global";
 //Alertas
 
 class CreateArticle extends Component {
+  url = Global.url;
+
   titleRef = React.createRef();
   contentRef = React.createRef();
 
@@ -22,8 +24,8 @@ class CreateArticle extends Component {
         content: this.contentRef.current.value,
       },
     });
-   console.log(this.state)
-/*   console.log(this.state.article.title)
+    /*     console.log(this.state);
+    console.log(this.state.article.title);
     console.log(this.state.article.content); */
   };
 
@@ -32,9 +34,28 @@ class CreateArticle extends Component {
 
     //Rellenar state con formulario
     this.changeState();
+
+    //Hacer peticion post http para guardar el articulo creado
+    axios.post(`${this.url}save/`, this.state.article).then((res) => {
+      if (res.data.article) {
+        this.setState({
+          article: res.data.article,
+          status: "success",
+        });
+      } else {
+        this.setState({
+          status: "failed",
+        });
+      }
+    });
   };
 
   render() {
+
+    if(this.state.status === 'success'){
+      return <Redirect to='/home' />
+    }
+
     return (
       <div className="center">
         <section id="content">
