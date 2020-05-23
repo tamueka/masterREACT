@@ -51,14 +51,6 @@ class Peliculas extends Component {
     });
   }
 
-  componentDidMount(){
-    //console.log("Componente montado")
-  }
-
-  componentWillUnmount(){
-    //console.log("Componente desmontado")
-  }
-
   render() {
     return (
       <div id="peliculas">

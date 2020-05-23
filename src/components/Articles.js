@@ -16,7 +16,7 @@ class Articles extends Component {
   };
 
   componentWillMount() {
-    var home = this.props.home;
+    var home = this.props.home; 
     var search = this.props.search;
 
     if (home === "true") {
@@ -32,12 +32,10 @@ class Articles extends Component {
     axios
       .get(`${this.url}search/${searched}`)
       .then((res) => {
-        if (res.data.articles) {
-          this.setState({
-            articles: res.data.articles,
-            status: "success",
-          });
-        }
+        this.setState({
+          articles: res.data.articles,
+          status: "success",
+        });
       })
       .catch((err) => {
         this.setState({
@@ -56,7 +54,7 @@ class Articles extends Component {
           status: "success",
         });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err.response.data.message));
   };
 
   getArticles = () => {
@@ -68,35 +66,37 @@ class Articles extends Component {
           status: "success",
         });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err.response.data.message));
   };
 
   render() {
-    if (this.state.articles.length >= 1) {
-      var listArticles = this.state.articles.map((article) =>  {
+    if (this.state.articles.length > 1) {
+      var listArticles = this.state.articles.map((article) => {
         return (
-          <div id="articles" key={article._id}>
-            <article className="article-item" id="article-template">
-              <div className="image-wrap">
-                {article.image !== null && article.image !== undefined ? (
-                  <img
-                    src={this.url + "get-image/" + article.image}
-                    alt={article.title}
-                  />
-                ) : (
-                  <img src={imgDefault} className="app-logo" alt="Logotipo" />
-                )}
-              </div>
+          <article
+            key={article._id}
+            className="article-item"
+            id="article-template"
+          >
+            <div className="image-wrap">
+              {article.image !== null && article.image !== undefined ? (
+                <img
+                  src={this.url + "get-image/" + article.image}
+                  alt={article.title}
+                />
+              ) : (
+                <img src={imgDefault} className="app-logo" alt="Logotipo" />
+              )}
+            </div>
 
-              <h2>{article.title}</h2>
-              <span className="date">
-                <Moment fromNow>{article.date}</Moment>
-              </span>
-              <Link to={`/blog/articulo/${article._id}`}>Leer más</Link>
+            <h2>{article.title}</h2>
+            <span className="date">
+              <Moment fromNow>{article.date}</Moment>
+            </span>
+            <Link to={`/blog/articulo/${article._id}`}>Leer más</Link>
 
-              <div className="clearfix"></div>
-            </article>
-          </div>
+            <div className="clearfix"></div>
+          </article>
         );
       });
       return <div id="articles">{listArticles}</div>;

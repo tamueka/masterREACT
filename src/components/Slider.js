@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class Slider extends Component {
   render() {
@@ -8,9 +8,9 @@ class Slider extends Component {
         <h1>{this.props.title}</h1>
 
         {this.props.btn && (
-          <NavLink to="/blog" className="btn-white">
+          <Link to="/blog" className="btn-white">
             {this.props.btn}
-          </NavLink>
+          </Link>
         )}
       </div>
     );

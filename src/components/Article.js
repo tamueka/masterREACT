@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import Global from "../Global";
-import Articles from "./Articles";
 import Sidebar from "./Sidebar";
 import logo from "../assets/images/logo.svg";
 import imgDefault from "../assets/images/image-holder-icon.png";
@@ -65,12 +64,12 @@ class Article extends Component {
               </span>
               <p>{article.content}</p>
 
-              <a href="#" className="btn btn-danger">
+              <Link to="/blog" className="btn btn-danger">
                 Eliminar
-              </a>
-              <a href="#" className="btn btn-warning">
+              </Link>
+              <Link to="/blog" className="btn btn-warning">
                 Editar
-              </a>
+              </Link>
 
               <div className="clearfix"></div>
             </article>
