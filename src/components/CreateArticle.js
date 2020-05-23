@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import axios from "axios";
 import Global from "../Global";
 import SimpleReactValidator from "simple-react-validator";
+import swal from "sweetalert";
 
 //Alertas
 
@@ -20,9 +21,9 @@ class CreateArticle extends Component {
 
   componentWillMount() {
     this.validator = new SimpleReactValidator({
-      messages:{
-        required: 'Este campo es requerido'
-      }
+      messages: {
+        required: "Este campo es requerido",
+      },
     });
   }
 
@@ -52,7 +53,11 @@ class CreateArticle extends Component {
             article: res.data.article,
             status: "waiting",
           });
-
+          swal(
+            "Articulo creado",
+            "El articulo ha sido creado correctamente",
+            "success"
+          );
           //Subir imagen
           if (this.selectedFile !== null) {
             //sacar id del articulo guardado
@@ -92,6 +97,11 @@ class CreateArticle extends Component {
           this.setState({
             status: "failed",
           });
+          swal(
+            "Articulo no creado",
+            "El articulo no ha sido creado correctamente",
+            "error"
+          );
         }
       });
     } else {
