@@ -15,6 +15,7 @@ class CreateArticle extends Component {
   state = {
     article: {},
     status: null,
+    selectedFile: null,
   };
 
   changeState = () => {
@@ -42,8 +43,44 @@ class CreateArticle extends Component {
       if (res.data.article) {
         this.setState({
           article: res.data.article,
-          status: "success",
+          status: "waiting",
         });
+
+        //Subir imagen
+        if (this.selectedFile !== null) {
+          //sacar id del articulo guardado
+          var articleId = this.state.article._id;
+
+          //crear formdata y añadir fichero
+          const formData = new FormData();
+          formData.append(
+            "file0",
+            this.state.selectedFile,
+            this.state.selectedFile.name
+          );
+
+          //peticion post ajax: http://localhost:3900/api/upload-image/
+          axios
+            .post(this.url + "upload-image/" + articleId, formData)
+            .then((res) => {
+              if (res.data.article) {
+                this.setState({
+                  article: res.data.article,
+                  status: "success",
+                });
+              } else {
+                this.setState({
+                  article: res.data.article,
+                  status: "failed",
+                });
+              }
+            })
+            .catch((err) => console.log(err));
+        } else {
+          this.setState({
+            status: "success",
+          });
+        }
       } else {
         this.setState({
           status: "failed",
@@ -52,10 +89,17 @@ class CreateArticle extends Component {
     });
   };
 
-  render() {
+  fileChange = (event) => {
+    this.setState({
+      selectedFile: event.target.files[0],
+    });
+    /*     console.log(event.target.files[0]);
+    console.log(this.state); */
+  };
 
-    if(this.state.status === 'success'){
-      return <Redirect to='/home' />
+  render() {
+    if (this.state.status === "success") {
+      return <Redirect to="/home" />;
     }
 
     return (
@@ -84,7 +128,7 @@ class CreateArticle extends Component {
 
             <div className="form-group">
               <label htmlFor="file0">Imagen</label>
-              <input type="file" name="file0" />
+              <input type="file" name="file0" onChange={this.fileChange} />
             </div>
 
             <input type="submit" value="Guardar" className="btn"></input>
