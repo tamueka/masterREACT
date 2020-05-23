@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import Global from "../Global";
+import SimpleReactValidator from "simple-react-validator";
 
-//Validacion formulario
 //Alertas
 
 class CreateArticle extends Component {
@@ -18,6 +18,14 @@ class CreateArticle extends Component {
     selectedFile: null,
   };
 
+  componentWillMount() {
+    this.validator = new SimpleReactValidator({
+      messages:{
+        required: 'Este campo es requerido'
+      }
+    });
+  }
+
   changeState = () => {
     this.setState({
       article: {
@@ -25,11 +33,9 @@ class CreateArticle extends Component {
         content: this.contentRef.current.value,
       },
     });
-    /*
-    console.log(this.state);
-    console.log(this.state.article.title);
-    console.log(this.state.article.content); 
-    */
+    //console.log(this.state);
+    this.validator.showMessages();
+    this.forceUpdate();
   };
 
   saveArticle = (e) => {
@@ -37,56 +43,62 @@ class CreateArticle extends Component {
 
     //Rellenar state con formulario
     this.changeState();
+    //Validacion formulario
+    if (this.validator.allValid()) {
+      //Hacer peticion post http para guardar el articulo creado
+      axios.post(`${this.url}save/`, this.state.article).then((res) => {
+        if (res.data.article) {
+          this.setState({
+            article: res.data.article,
+            status: "waiting",
+          });
 
-    //Hacer peticion post http para guardar el articulo creado
-    axios.post(`${this.url}save/`, this.state.article).then((res) => {
-      if (res.data.article) {
-        this.setState({
-          article: res.data.article,
-          status: "waiting",
-        });
+          //Subir imagen
+          if (this.selectedFile !== null) {
+            //sacar id del articulo guardado
+            var articleId = this.state.article._id;
 
-        //Subir imagen
-        if (this.selectedFile !== null) {
-          //sacar id del articulo guardado
-          var articleId = this.state.article._id;
+            //crear formdata y añadir fichero
+            const formData = new FormData();
+            formData.append(
+              "file0",
+              this.state.selectedFile,
+              this.state.selectedFile.name
+            );
 
-          //crear formdata y añadir fichero
-          const formData = new FormData();
-          formData.append(
-            "file0",
-            this.state.selectedFile,
-            this.state.selectedFile.name
-          );
-
-          //peticion post ajax: http://localhost:3900/api/upload-image/
-          axios
-            .post(this.url + "upload-image/" + articleId, formData)
-            .then((res) => {
-              if (res.data.article) {
-                this.setState({
-                  article: res.data.article,
-                  status: "success",
-                });
-              } else {
-                this.setState({
-                  article: res.data.article,
-                  status: "failed",
-                });
-              }
-            })
-            .catch((err) => console.log(err));
+            //peticion post ajax: http://localhost:3900/api/upload-image/
+            axios
+              .post(this.url + "upload-image/" + articleId, formData)
+              .then((res) => {
+                if (res.data.article) {
+                  this.setState({
+                    article: res.data.article,
+                    status: "success",
+                  });
+                } else {
+                  this.setState({
+                    article: res.data.article,
+                    status: "failed",
+                  });
+                }
+              })
+              .catch((err) => console.log(err));
+          } else {
+            this.setState({
+              status: "success",
+            });
+          }
         } else {
           this.setState({
-            status: "success",
+            status: "failed",
           });
         }
-      } else {
-        this.setState({
-          status: "failed",
-        });
-      }
-    });
+      });
+    } else {
+      this.setState({
+        status: "failed",
+      });
+    }
   };
 
   fileChange = (event) => {
@@ -115,6 +127,11 @@ class CreateArticle extends Component {
                 ref={this.titleRef}
                 onChange={this.changeState}
               />
+              {this.validator.message(
+                "title",
+                this.state.article.title,
+                "required|alpha_num_space"
+              )}
             </div>
 
             <div className="form-group">
@@ -124,6 +141,11 @@ class CreateArticle extends Component {
                 ref={this.contentRef}
                 onChange={this.changeState}
               />
+              {this.validator.message(
+                "content",
+                this.state.article.content,
+                "required"
+              )}
             </div>
 
             <div className="form-group">
