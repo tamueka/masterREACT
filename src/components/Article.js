@@ -113,7 +113,7 @@ class Article extends Component {
               >
                 Eliminar
               </button>
-              <Link to="/blog" className="btn btn-warning">
+              <Link to={'/blog/editar/'+article._id} className="btn btn-warning">
                 Editar
               </Link>
 

@@ -11,6 +11,7 @@ import Peliculas from "./components/Peliculas";
 import Search from "./components/Search";
 import Article from "./components/Article";
 import CreateArticle from "./components/CreateArticle";
+import EditArticle from "./components/EditArticle";
 
 class Router extends Component {
   render() {
@@ -33,6 +34,7 @@ class Router extends Component {
           />
           <Route exact path="/blog/articulo/:id" component={Article} />
           <Route exact path="/blog/crear" component={CreateArticle} />
+          <Route exact path="/blog/editar/:id" component={EditArticle} />
           <Route exact path="/formulario" component={Formulario} />
           <Route exact path="/peliculas" component={Peliculas} />
           <Route

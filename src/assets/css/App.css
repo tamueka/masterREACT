@@ -354,6 +354,10 @@ textarea {
   height: auto;
 }
 
+.thumb{
+  width: 170px;
+}
+
 .article-detail .subheader {
   margin-top: 15px;
   margin-bottom: 0px;
