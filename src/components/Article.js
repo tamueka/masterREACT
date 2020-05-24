@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import Global from "../Global";
 import Sidebar from "./Sidebar";
@@ -7,6 +7,7 @@ import logo from "../assets/images/logo.svg";
 import imgDefault from "../assets/images/image-holder-icon.png";
 import Moment from "react-moment";
 import "moment/locale/es";
+import swal from "sweetalert";
 
 class Article extends Component {
   url = Global.url;
@@ -38,7 +39,47 @@ class Article extends Component {
       });
   };
 
+  deleteArticle = (id) => {
+    swal({
+      title: "¿Estas seguro?",
+      text: "Una vez eliminado, ¡no podrá recuperar este articulo!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        axios
+          .delete(this.url + "article/" + id)
+          .then((res) => {
+            this.setState({
+              article: res.data.article,
+              status: "deleted",
+            });
+          })
+          .catch((err) => {
+            this.setState({
+              article: false,
+              status: "failed",
+            });
+            swal(
+              "Articulo no borrado",
+              "No es posible borrar el articulo",
+              "error"
+            );
+          });
+        swal("Poof! Tu articulo ha sido borrado!", {
+          icon: "success",
+        });
+      } else {
+        swal("Tu articulo esta a salvo!");
+      }
+    });
+  };
+
   render() {
+    if (this.state.status === "deleted") {
+      return <Redirect to="/home"></Redirect>;
+    }
     var article = this.state.article;
     return (
       <div className="center">
@@ -64,9 +105,14 @@ class Article extends Component {
               </span>
               <p>{article.content}</p>
 
-              <Link to="/blog" className="btn btn-danger">
+              <button
+                onClick={() => {
+                  this.deleteArticle(article._id);
+                }}
+                className="btn btn-danger"
+              >
                 Eliminar
-              </Link>
+              </button>
               <Link to="/blog" className="btn btn-warning">
                 Editar
               </Link>
